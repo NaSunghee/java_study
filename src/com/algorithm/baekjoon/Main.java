@@ -9,24 +9,49 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        //test1();
-        //test2();
-        //test3();
-        //test4();
-        //test5();
-        //test5_1();
-        //test6();
-        //test7(); //2577
-        //test8(); //1546
-        //test9(); //8958
-        //test10(); //4344
-        //test11(); //4673
-        //test12(); //1065
-        //test13(); //10809
-        //test14(); //2675
-        test15(); //1157
+        test5622();
     }
-    private static void test15() throws Exception {
+
+    private static void test5622() throws Exception {
+
+    }
+    private static void test2908() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        //입력받은 두 숫자를 거꾸로 읽고, 크기를 비교하여 큰 수를 출력
+        //두 수는 같지 않은 세 자리 수이며, 0이 포함되어 있지 않다.
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str," ");
+        String a = st.nextToken();
+        String b = st.nextToken();
+
+        StringBuffer sba = new StringBuffer(a);
+        StringBuffer sbb = new StringBuffer(b);
+        String aa = String.valueOf(sba.reverse());
+        String bb = String.valueOf(sbb.reverse());
+
+        bw.write(Integer.parseInt(aa) > Integer.parseInt(bb) ? aa+"" : bb+"");
+        bw.flush();
+        bw.close();
+    }
+    private static void test1152() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        //영어 대소문자와 띄어쓰기만으로 이루어진 문자열이 주어진다.
+        // 이 문자열에는 몇 개의 단어가 있을까? 이를 구하는 프로그램을 작성하시오.
+        // 단, 한 단어가 여러 번 등장하면 등장한 횟수만큼 모두 세어야 한다.
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str," ");
+        int cnt = 0;
+        while(st.hasMoreTokens()){
+            cnt++;
+            st.nextToken();
+        }
+        bw.write(cnt+"");
+        bw.flush();
+        bw.close();
+    }
+    private static void test1157() throws Exception {
         //알파벳 대소문자로 된 단어가 주어지면, 이 단어에서 가장 많이 사용된 알파벳이 무엇인지 알아내는 프로그램을 작성하시오.
         // 단, 대문자와 소문자를 구분하지 않는다.
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -55,7 +80,7 @@ public class Main {
         bw.close();
     }
 
-    private static void test14() throws Exception {
+    private static void test2675() throws Exception {
         //첫째 줄에 테스트 케이스의 개수 T(1 ≤ T ≤ 1,000)가 주어진다.
         // 각 테스트 케이스는 반복 횟수 R(1 ≤ R ≤ 8), 문자열 S가 공백으로 구분되어 주어진다.
         // S의 길이는 적어도 1이며, 20글자를 넘지 않는다.
@@ -79,7 +104,7 @@ public class Main {
         bw.close();
     }
 
-    private static void test13() throws Exception {
+    private static void test10809() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
@@ -92,7 +117,7 @@ public class Main {
         bw.close();
     }
 
-    private static void test12() throws Exception {
+    private static void test1065() throws Exception {
         /* 어떤 양의 정수 X의 각 자리가 등차수열을 이룬다면, 그 수를 한수라고 한다.
            등차수열은 연속된 두 개의 수의 차이가 일정한 수열을 말한다.
            N이 주어졌을 때, 1보다 크거나 같고, N보다 작거나 같은 한수의 개수를 출력하는 프로그램을 작성하시오.
@@ -133,7 +158,7 @@ public class Main {
         }
         return result;
     }
-    private static void test11() throws Exception {
+    private static void test4673() throws Exception {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         Set set = new HashSet();
@@ -169,7 +194,7 @@ public class Main {
         return result;
     }
 
-    private static void test10() throws Exception {
+    private static void test4344() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
         DecimalFormat form = new DecimalFormat("#.000");
@@ -210,7 +235,7 @@ public class Main {
 //    33.333%
 //    66.667%
 //    55.556%
-    private static void test9() throws Exception {
+    private static void test8958() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
@@ -232,14 +257,8 @@ public class Main {
         bw.flush();
         bw.close();
     }
-//5
-//OOXXOXXOOO
-//OOXXOOXXOO
-//OXOXOXOXOXOXOX
-//OOOOOOOOOO
-//OOOOXOOOOXOOOOX
 
-    private static void test8() throws Exception {
+    private static void test1546() throws Exception {
         //세준이의 최고점이 70이고, 수학점수가 50이었으면 수학점수는 50/70*100이 되어 71.43점이 된다.
         //새로운 평균을 구하자
         //input : 첫줄 - 과목수, 둘째줄 - 점수 나열
@@ -270,7 +289,7 @@ public class Main {
         bw.close();
     }
 
-    private static void test7() throws Exception {
+    private static void test2577() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
