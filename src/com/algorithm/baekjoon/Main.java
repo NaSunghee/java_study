@@ -13,8 +13,30 @@ public class Main {
     }
 
     private static void test5622() throws Exception {
-
+        // 2:ABC / 3:DEF / 4:GHI / 5:JKL / 6:MNO / 7:PQRS / 8:TUV / 9:WXYZ
+        // 입력 - 대문자로 이루어진 단어
+        // 출력 - 단어의 길이 + 위 알파벳이 속한 번호의 합
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String str = br.readLine();
+        int result = str.length();
+        for (char a : str.toCharArray()) {
+            switch (a) {
+                case 'A' : case 'B' : case 'C' : result += 2; break;
+                case 'D' : case 'E' : case 'F' : result += 3; break;
+                case 'G' : case 'H' : case 'I' : result += 4; break;
+                case 'J' : case 'K' : case 'L' : result += 5; break;
+                case 'M' : case 'N' : case 'O' : result += 6; break;
+                case 'P' : case 'Q' : case 'R' : case 'S' : result += 7; break;
+                case 'T' : case 'U' : case 'V' : result += 8; break;
+                case 'W' : case 'X' : case 'Y' : case 'Z' : result += 9; break;
+            }
+        }
+        bw.write(result+"");
+        bw.flush();
+        bw.close();
     }
+
     private static void test2908() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
