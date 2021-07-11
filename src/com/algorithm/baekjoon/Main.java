@@ -9,9 +9,71 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        test5622();
+        test1316();
     }
 
+    private static void test1316() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        // 그룹 단어 체커
+        // 입력 - 알파벳 소문자 단어
+        // 출력 - 그룹단어의 갯수 ( 그룹단어 - 연속되는 단어, 앞에 나왔던 단어가 뒤에 나오지 않는 단어 )
+        int cnt = Integer.parseInt(br.readLine());
+        int result = 0;
+        for(int i = 0 ; i < cnt ; i++){
+            String str = br.readLine();
+            if( groupchecker(str) ){ //그룹단어 인 경우
+                result++;
+            }
+        }
+        bw.write(result+"");
+        bw.flush();
+        bw.close();
+    }
+    private static boolean groupchecker(String str){
+        int cnt = 0;
+        //aabbbcdd - true
+        //aabbbcb - false
+        //1.연속되는 alpha를 하나로 표현: aabbbcdd => abcd
+        //1-1)str 중 aa -> a 로 치환 ~ zz -> z 로 치환 , indexOf aa~zz 모두 -1 일 때까지
+        //2.for a~z laseIndexOf - indexOf = 0 -> true;
+        int dup;
+        do {
+            dup = 0;
+            for (int i = 0; i < str.length() - 1; i++) {
+                if (str.charAt(i) == str.charAt(i + 1)) {
+                    str = str.substring(0, i) + str.substring(i + 1, str.length());
+                }
+            }
+            for (int j = 0 ; j <str.length() -1 ; j++){
+                if (str.charAt(j) == str.charAt(j + 1)) { dup++; }
+            }
+        }while(dup!=0);
+
+        for(char c = 'a' ; c <= 'z' ; c++){
+            if(str.lastIndexOf(c) != str.indexOf(c)) cnt++;
+        }
+        if(cnt > 0) return false;
+        else return true;
+    }
+    private static void test2941() throws Exception {
+        //크로아티아 알파벳   č	c= / ć	c- / dž	dz= /đ	d- / lj	lj / nj	nj / š	s= / ž	z=
+        //입력 : 알파벳 소문자 + '=' + '-'
+        //출력 : 크로아티아 알파벳 길이
+        // = or - or lj or nj 이 있을 경우 -1
+        // 예외 : dz= 이 있을 경우 -1 추가
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String str = br.readLine();
+        str = str.replaceAll("c=","c").replaceAll("c-","c")
+                .replaceAll("dz=","d").replaceAll("d-","d")
+                .replaceAll("lj","l").replaceAll("nj","n")
+                .replaceAll("s=","s").replaceAll("z=","z");
+        bw.write(str.length()+"");
+        bw.flush();
+        bw.close();
+
+    }
     private static void test5622() throws Exception {
         // 2:ABC / 3:DEF / 4:GHI / 5:JKL / 6:MNO / 7:PQRS / 8:TUV / 9:WXYZ
         // 입력 - 대문자로 이루어진 단어
