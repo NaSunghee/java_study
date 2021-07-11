@@ -9,7 +9,143 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        test1316();
+        test10250();
+    }
+
+    private static void test10250() throws Exception {
+        //ACM호텔
+        //입력 : 각 호텔의 층 수, 각 층의 방 수, 몇 번째 손님인지 입력
+        //출력 : 손님이 묵을 방의 번호
+        //손님이 묵는 방의 순서 - 각 101 ~ H01 -> 102 ~ H02
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int cnt = Integer.parseInt(br.readLine());
+        for(int i = 0 ; i < cnt ; i++){
+            String str = br.readLine();
+            StringTokenizer st = new StringTokenizer(str);
+            int h = Integer.parseInt(st.nextToken());
+            int w = Integer.parseInt(st.nextToken());
+            int n = Integer.parseInt(st.nextToken());
+            int h1 = 0; // 층수 : n/h의 나머지 , 0이면 h
+            int w1 = 0; // n/h의 몫 + 1 , 나머지가 0이면 n/h
+            if (n % h == 0) {
+                h1 = h;
+                w1 = n / h;
+            } else {
+                h1 = n % h;
+                w1 = n / h + 1;
+            }
+            if (w1 < 10) {
+                bw.write(h1 + "0" + w1 + "\n");
+            } else bw.write(h1 + "" + w1 + "\n");
+        }
+        bw.flush();
+        bw.close();
+    }
+
+    private static void test2869() throws Exception {
+        //땅 위에 달팽이가 있다. 이 달팽이는 높이가 V미터인 나무 막대를 올라갈 것이다.
+        //달팽이는 낮에 A미터 올라갈 수 있다. 하지만, 밤에 잠을 자는 동안 B미터 미끄러진다. 또, 정상에 올라간 후에는 미끄러지지 않는다.
+        //달팽이가 나무 막대를 모두 올라가려면, 며칠이 걸리는지 구하는 프로그램을 작성하시오.
+        //입력:첫째 줄에 세 정수 A, B, V가 공백으로 구분되어서 주어진다. (1 ≤ B < A ≤ V ≤ 1,000,000,000)
+        //출력:첫째 줄에 달팽이가 나무 막대를 모두 올라가는데 며칠이 걸리는지 출력한다.
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str);
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+        int v = Integer.parseInt(st.nextToken());
+
+        //a * day - b * (day-1) > v
+        //day > (v - b) / (a - b)
+        int day = (v-b) / (a-b);
+        int mod = (v-b) % (a-b);
+        if(mod == 0) bw.write(day+"");
+        else bw.write(day+1+"");
+        bw.flush();
+        bw.close();
+    }
+
+    private static void test1193() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int cnt = Integer.parseInt(br.readLine());
+        // 1/1  ( 1/2  2/1 ) ( 3/1 2/2 1/3 ) ( 1/4 2/3 3/2 4/1 ) ( 5/1 4/2 3/3 2/4 1/5 ) ...
+        // 1 + 2 + 3 + 4 ...
+        // 출력 : a/b (n == a+b) n이 홀수 : 분자는 증가 분모는 감소 / n이 짝수 분자는 감소 분모는 증가
+        int m = cnt;
+        int n = 0;
+        int a = 0;
+        int b = 0;
+        while(m>0){
+            m = m - n;
+            n++;
+        }
+        int last = 0;
+        for(int i = 0 ; i < n-1 ; i++){
+            last += i;
+        }
+        if(n%2==1){
+            a = cnt-last;
+            b = n - a;
+        }else{
+            b = cnt-last;
+            a = n - b;
+        }
+        bw.write(a+"/"+b);
+        bw.flush();
+        bw.close();
+    }
+
+    private static void test2292() throws Exception {
+        //벌집
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        //육각형으로 이루어진 벌집이 있다.
+        //그림에서 보는 바와 같이 중앙의 방 1부터 시작해서 이웃하는 방에 돌아가면서 1씩 증가하는 번호를 주소로 매길 수 있다.
+        //숫자 N이 주어졌을 때, 벌집의 중앙 1에서 N번 방까지 최소 개수의 방을 지나서 갈 때 몇 개의 방을 지나가는지(시작과 끝을 포함하여)를 계산하는 프로그램을 작성하시오.
+        //예를 들면, 13까지는 3개, 58까지는 5개를 지난다.
+        // 1 / 2~7(6) / 8~19(12) / 20~37(18) / 38~61(24) / ...
+        // 1 + 6*1 + 6*2 + 6*3 ...
+//        int n = 3;
+//        int result = 1;
+//        for(int i = 1 ; i < n ; i++){
+//            result += 6 * i;
+//        }
+        int n = 1;
+        int a = Integer.parseInt(br.readLine());
+        while( a > 1 ) {
+            a = a - 6 * n;
+            n++;
+        }
+        bw.write(n  + "");
+        bw.flush();
+        bw.close();
+    }
+    private static void test1712() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        //손익분기점(break-even point)
+        //A고정비용 B가변비용 C노트북가격
+        //입력 : A B C
+        //출력 : x ( C * X >= A + B * X )
+        String input = br.readLine();
+        StringTokenizer st = new StringTokenizer(input," ");
+        int a = Integer.parseInt(st.nextToken());
+        int b = Integer.parseInt(st.nextToken());
+        int c = Integer.parseInt(st.nextToken());
+        int x = 0;
+
+        // x > a / (c-b)
+        if(c != b) x = a/(c-b) + 1;
+        else x = -1;
+        if(x < 0 ) x = -1;
+        bw.write(x + "");
+        bw.flush();
+        bw.close();
     }
 
     private static void test1316() throws Exception {
