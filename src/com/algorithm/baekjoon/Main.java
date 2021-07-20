@@ -4,14 +4,114 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        test10250();
+        test10757();
+    }
+    private static void test10757() throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str," ");
+        //TODO::BigDecimal 정리
+        BigDecimal a = new BigDecimal(st.nextToken());
+        BigDecimal b = new BigDecimal(st.nextToken());
+        bw.write(a.add(b)+"");
+        bw.flush();
+        bw.close();
     }
 
+    private static void test2839() throws Exception {
+        // 설탕 배달
+        // 설탕공장에서 만드는 설탕은 봉지에 담겨져 있다. 봉지는 3킬로그램 봉지와 5킬로그램 봉지가 있다.
+        // 최대한 적은 봉지를 들고 가려고 한다.
+        // 예를 들어, 18킬로그램 설탕을 배달해야 할 때, 3킬로그램 봉지 6개를 가져가도 되지만, 5킬로그램 3개와 3킬로그램 1개를 배달하면, 더 적은 개수의 봉지를 배달할 수 있다.
+        // 상근이가 설탕을 정확하게 N킬로그램 배달해야 할 때, 봉지 몇 개를 가져가면 되는지 그 수를 구하는 프로그램을 작성하시오.
+        // 첫째 줄에 N이 주어진다. (3 ≤ N ≤ 5000) 만약, 정확하게 N킬로그램을 만들 수 없다면 -1을 출력
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int sugar = Integer.parseInt(br.readLine());
+        int bag = 0;
+        if(sugar == 4 || sugar == 7){
+            bag = -1;
+        }else{
+            switch(sugar % 5){
+                case 0: bag = sugar/5; break;
+                case 1:
+                case 3: bag = sugar/5 + 1; break;
+                case 2:
+                case 4: bag = sugar/5 + 2; break;
+            }
+        }
+        bw.write(bag + "");
+        bw.flush();
+        bw.close();
+        // 3키로  = 3*1
+        // 4키로  = -1
+
+        // 5키로  = 5*1
+        // 6키로  = 3*2
+        // 7키로  = -1
+        // 8키로  = 5*1 + 3*1
+        // 9키로  = 3*3
+
+        // 10키로 = 5*2 (2)
+        // 11키로 = 5*1 + 3*2 (3)
+        // 12키로 = 3*4 (4)
+        // 13키로 = 5*2 + 3*1 (3)
+        // 14키로 = 5*1 + 3*3 (4)
+
+        // 15키로 = 5*3 (3)
+        // 16키로 = 5*2 + 3*2 (4)
+        // 17키로 = 5*1 + 3*4 (5)
+        // 18키로 = 5*3 + 3*1 (4)
+        // 19키로 = 5*2 + 3*3 (5)
+
+        // 20키로 = 5*4
+        // 21키로 = 5*3 + 3*2
+        // 22키로 = 5*2 + 3*4
+        // 23키로 = 5*4 + 3*1
+        // 24키로 = 5*3 + 3*3
+
+        // 25키로 = 5*5
+    }
+    private static void test2775() throws Exception {
+        //“a층의 b호에 살려면 자신의 아래(a-1)층의 1호부터 b호까지 사람들의 수의 합만큼 사람들을 데려와 살아야 한다”
+        //아파트에 비어있는 집은 없고 모든 거주민들이 이 계약 조건을 지키고 왔다고 가정했을 때,
+        // 주어지는 양의 정수 k와 n에 대해 k층에 n호에는 몇 명이 살고 있는지 출력하라.
+        // 단, 아파트에는 0층부터 있고 각층에는 1호부터 있으며, 0층의 i호에는 i명이 산다.
+        // 입력 : 첫 번째 줄에 Test case의 수 T가 주어진다. 그리고 각각의 케이스마다 입력으로 첫 번째 줄에 정수 k, 두 번째 줄에 정수 n이 주어진다 1 ≤ k, n ≤ 14
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int cnt = Integer.parseInt(br.readLine()); // Test case
+        for( int i = 0 ; i < cnt ; i++ ) {
+            int k = Integer.parseInt(br.readLine());
+            int n = Integer.parseInt(br.readLine());
+            int peopleCnt = people(k, n);
+            bw.write(peopleCnt + "\n");
+        }
+        bw.flush();
+        bw.close();
+    }
+
+    private static int people(int k, int n) {
+        // return : k-1층의 1호~n호 까지 사람들의 수의 합
+        // 3층 1  5  15  35  70  126
+        // 2층 1  4  10  20  35  56
+        // 1층 1  3  6   10  15  21
+        // 0층 1  2  3   4   5   6
+        // -층 1  1  1   1   1   1
+        int result = 0;
+        //TODO::다시 풀어보기
+        //1) 재귀함수를 통한 풀이
+        //2) 이차원배열을 통한 풀이
+
+        return result;
+    }
     private static void test10250() throws Exception {
         //ACM호텔
         //입력 : 각 호텔의 층 수, 각 층의 방 수, 몇 번째 손님인지 입력
