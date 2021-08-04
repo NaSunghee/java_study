@@ -10,8 +10,112 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws Exception{
-        test10757();
+        test2581();
     }
+
+    private static void test2581() throws Exception {
+        //소수 찾기
+        //자연수 M과 N이 주어질 때 M이상 N이하의 자연수 중 소수인 것을 모두 골라 이들 소수의 합과 최솟값을 찾는 프로그램을 작성하시오.
+        //예를 들어 M=60, N=100인 경우 60이상 100이하의 자연수 중 소수는 61, 67, 71, 73, 79, 83, 89, 97 총 8개가 있으므로, 이들 소수의 합은 620이고, 최솟값은 61이 된다.
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int m = Integer.parseInt(br.readLine());
+        int n = Integer.parseInt(br.readLine());
+        int min = n;
+        int sum = 0;
+        for( ; m <= n ; n--) {
+            if(n > 1 && chkSosu(n)){
+                sum += n;
+                min = n;
+            }
+        }
+        String result = sum == 0 ? "-1" : (sum + "\n" + min);
+        bw.write(result);
+        bw.flush();
+        bw.close();
+    }
+
+    private static void test1978() throws Exception {
+        //소수 찾기
+        //첫 줄에 수의 개수 N이 주어진다. N은 100이하이다. 다음으로 N개의 수가 주어지는데 수는 1,000 이하의 자연수이다.
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        int cnt = Integer.parseInt(br.readLine());
+        String str = br.readLine();
+        StringTokenizer st = new StringTokenizer(str, " ");
+        int result = 0;
+        for ( int i = 0 ; i < cnt ; i++ ) {
+            int x = Integer.parseInt(st.nextToken());
+            //2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53...
+            if(x > 1 && chkSosu(x)) result++;
+        }
+        bw.write(result+"");
+        bw.flush();
+        bw.close();
+    }
+
+    private static boolean chkSosu(int x){
+        int result = 0;
+        for(int i = 2 ; i < x ; i++){
+            if ( x % i == 0 ) result++; //자신보다 작은 수로 나누었을 때 나머지가 0인 값이 하나도 없는 경우는 소수 result 가 0인 경우
+        }
+        return result == 0 ? true : false;
+    }
+    private static void test1011() throws Exception {
+        //Fly me to the Alpha Centauri
+        //입력의 첫 줄에는 테스트케이스의 개수 T가 주어진다. 각각의 테스트 케이스에 대해 현재 위치 x 와 목표 위치 y 가 정수로 주어지며, x는 항상 y보다 작은 값을 갖는다. (0 ≤ x < y < 231)
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        int t = Integer.parseInt(br.readLine());
+        for ( int i = 0 ; i < t ; i++ ) {
+            String str = br.readLine();
+            StringTokenizer st = new StringTokenizer(str, " ");
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
+
+            int dis = y-x;
+            int cnt = operCnt(dis);
+            bw.write(cnt+"\n");
+        }
+        bw.flush();
+        bw.close();
+    }
+    private static int operCnt(int dis) {
+        // 1 = 1
+        // 2 = 1 + 1            대칭
+
+        // 3 = 1 + 1 + 1        대칭
+        // 4 = 1 + 2 + 1        대칭
+
+        // 5 = 1 + 2 + 1 + 1
+        // 6 = 1 + 2 + 2 + 1
+
+        // 7 = 1 + 2 + 2 + 1 + 1
+        // 8 = 1 + 2 + 2 + 2 + 1
+        // 9 = 1 + 2 + 3 + 2 + 1    대칭
+
+        // 10 = 1 + 2 + 3 + 2 + 1 + 1
+        // 11 = 1 + 2 + 3 + 2 + 2 + 1
+        // 12 = 1 + 2 + 3 + 3 + 2 + 1
+
+        // 13 = 1 + 2 + 3 + 3 + 2 + 1 + 1
+        // 14 = 1 + 2 + 3 + 3 + 2 + 2 + 1
+        // 15 = 1 + 2 + 3 + 3 + 3 + 2 + 1
+        // 16 = 1 + 2 + 3 + 4 + 3 + 2 + 1
+        // 1 - 1 / 2 - 2 / 3,4 - 3 / 5,6 - 4 / 7,8,9 - 5 / 10,11,12 - 6
+        // 1 / 2 / 3,4 / 5,6 / 7,8,9 / 10,11,12 / 13,14,15,16 / 17,18,19,20 /
+        // 1 / 2 / 3 3 / 4 4 / 5 5 5 / 6 6 6    / 7 7 7 7  / 8 8 8 8 / 9 9 9 9 9 / 10 10 10 10 10 /
+        int n = 0;
+        int m = 0;
+        while(dis > 0){
+            n++;
+            if(n%2 == 1) m++;
+            dis -= m;
+        }
+        return n;
+    }
+
     private static void test10757() throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
